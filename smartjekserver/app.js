@@ -26,7 +26,7 @@ app.use(express.static('public'));
 
 //var gcm = GCM('363651967593', 'AIzaSyCfYqVxRG0oz7Xo_jgRcXJk54t-XXhATGs');
 //var sender = new gcm.Sender('AIzaSyDUrnkknKXVwyM8Hmh0KVnQlU-oBrIjacY');
-var fcm = new FCM('AIzaSyBE6TSp7p_NwY_FLGdHS05vci0gif1CJ1M');
+var fcm = new FCM('AIzaSyDUrnkknKXVwyM8Hmh0KVnQlU-oBrIjacY');
  
 /*gcm.on('message', function(messageId, from, category, data) {
     console.log('message received::'+JSON.stringify(data))
@@ -245,7 +245,7 @@ var getInitData = function(location){
   return q.promise;
 };
 
-var sendOrder = function(service){
+var sendOrder = function(){
   var q = Q.defer();
   var vendorRef = firebase.database().ref("/vendors/V101/");
   vendorRef.once('value', function(snapshot){
@@ -260,7 +260,9 @@ var sendOrder = function(service){
             'data.key1': 'value1',
             'data.key2': 'value2'
         };
+        console.log('message ', message);
         fcm.send(message, function(err, messageId){
+            console.log('fcm send callback');
             if (err) {
                 console.log("Something has gone wrong!");
                 q.reject({'result':'no vendor'});

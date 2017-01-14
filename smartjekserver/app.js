@@ -14,7 +14,8 @@ const express = require('express'),
     Wit = require('node-wit').Wit,
     log = require('node-wit').log,
     firebase = require('firebase-admin'),
-    Q = require("q");
+    Q = require("q"),
+    geoip = require('geoip-lite');
 
 
 var app = express();
@@ -156,6 +157,10 @@ app.use(bodyParser.json());
 
 app.get('/init', function(request, response) {
   console.log('inside init')
+  var ip = request.connection.remoteAddress;
+  console.log('ip ', ip);
+  var geo = geoip.lookup(ip);
+  console.log(geo);
   getInitData()
   .then(function(data){
     console.log('after getting response');

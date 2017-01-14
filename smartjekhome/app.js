@@ -93,7 +93,7 @@ var printCount=function(){
 };
 
 var initData = function(){
-    httpOptions.path = 'init?location=domlur';
+    httpOptions.path = 'init';
     httpOptions.path = 'GET';
     var req = https.request(httpOptions, (res) => {
       //console.log('statusCode: ', res.statusCode);

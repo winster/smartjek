@@ -138,7 +138,7 @@ var initData = function(){
       console.error(e);
     });
 };
-
+var intervalId;
 var makeOrder = function(service){
     httpOptions.path = '/order';
     httpOptions.method = 'POST';
@@ -152,7 +152,8 @@ var makeOrder = function(service){
       });
       res.on('end', ()=> {
          console.log(data);
-         setInterval(function(){pullWaitingPeriod(service)}, 20000);
+         clearInterval(intervalId);
+         intervalId = setInterval(function(){pullWaitingPeriod(service)}, 20000);
       });
     });
     req.end();

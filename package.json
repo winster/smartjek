@@ -17,7 +17,8 @@
     "request": "^2.72.0",
     "node-wit" : "*",
     "firebase-admin": "^4.0.3",
-    "q":"*"
+    "q":"*",
+    "geoip-lite":"*"
   },
   "devDependencies": {},
   "scripts": {

@@ -260,6 +260,10 @@ var sendOrder = function(){
               "body" : "great match!",
               "title" : "Portugal vs. Denmark",
               "icon" : "myicon"
+            },
+            "data": {
+              "score": "5x1",
+              "time": "15:10"
             }
         };
         var messageStr = JSON.stringify(message); 
@@ -285,11 +289,13 @@ var sendOrder = function(){
             });
             res.on('end', ()=> {
                console.log(data);
+               q.resolve({'result':'success'});
             });
         });
         req.end(messageStr);
         req.on('error', (e) => {
           console.error(e);
+          q.reject({'result':'no vendor'});
         });
         /*fcm.send(message, function(err, messageId){
             console.log('fcm send callback');

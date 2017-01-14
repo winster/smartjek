@@ -1,0 +1,27 @@
+{
+  "name": "SmartJekHome",
+  "version": "1.0.0",
+  "description": "IOT SmartHomeJel",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/winster/smartjekhome.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/winster/smartjekhome/issues"
+  },
+  "homepage": "https://github.com/winster/smartjekhome#readme",
+  "dependencies": {
+    "lcd" : "*",
+    "onoff" : "*",
+    "raspi" : "*",
+    "raspi-rotary-encoder" : "*",
+    "onoff-rotary": "*",
+    "rpi-gpio": "*"
+  }
+}

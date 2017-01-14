@@ -183,6 +183,7 @@ app.post('/devicetoken', function(request, response) {
   console.log('inside devicetoken')
   var req = request.body;
   var deviceToken = req.deviceToken;
+  var vendorRef = firebase.database().ref("/vendors/"+devicetoken+"/");
   vendorRef.once('value', function(snapshot){
       var profile = snapshot.val();
       if(!profile) {

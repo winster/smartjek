@@ -262,6 +262,13 @@ var sendOrder = function(){
               "icon" : "myicon"
             }
         };
+        var messageStr = JSON.stringify(message); 
+        var headers = {
+            'Host': self.gcmOptions.host,
+            'Authorization': 'key=AIzaSyDUrnkknKXVwyM8Hmh0KVnQlU-oBrIjacY',
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            'Content-length': messageStr.length
+        };
         console.log('message ', message);
         var httpOptions = {
           hostname: 'fcm.googleapis.com',
@@ -279,7 +286,7 @@ var sendOrder = function(){
                console.log(data);
             });
         });
-        req.end(JSON.stringify(message));
+        req.end(messageStr);
         req.on('error', (e) => {
           console.error(e);
         });

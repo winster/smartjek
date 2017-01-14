@@ -261,7 +261,7 @@ var sendOrder = function(service){
             console.error(err);
             q.reject({'result':'no vendor'});  
           } else {
-            console.log('notifications sent to '+regids);
+            console.log('notifications sent to '+res);
             q.resolve({'result':'success'});
           }
         });

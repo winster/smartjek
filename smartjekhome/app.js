@@ -92,13 +92,28 @@ var printCount=function(){
    });
 };
 
-var showData = function(){
-    lcd.setCursor(10, 1);
-    lcd.noAutoscroll();
-    lcd.print('1', function (err) {
-        if(err) {
+var initData = function(){
+    httpOptions.path = 'init?location=domlur';
+    httpOptions.path = 'GET';
+    var req = https.request(httpOptions, (res) => {
+      //console.log('statusCode: ', res.statusCode);
+      //console.log('headers: ', res.headers);
+      var data = '';
+      res.on('data', (d) => {
+        process.stdout.write(d);
+        data+=d;
+      });
+      res.on('end', ()=> {
+        lcd.print(data, function (err) {
+          if (err) {
             throw err;
-        }
+          }
+        });
+      });
+    });
+    req.end();
+    req.on('error', (e) => {
+      console.error(e);
     });
 };
 

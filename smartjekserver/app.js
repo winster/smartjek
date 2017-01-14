@@ -279,7 +279,11 @@ var getWaitingPeriod = function(){
       } else {
         var regids = [];
         var time = vendors[Object.keys(vendors)[0]]['time'];
-        q.resolve({'time':time});
+        if(time){
+          q.resolve({'time':time});
+        } else {
+          q.reject({'result':'error'});  
+        }
       }
   });    
   return q.promise;

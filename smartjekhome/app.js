@@ -174,7 +174,7 @@ var pullWaitingPeriod = function(){
       });
       res.on('end', ()=> {
          console.log(data);
-         waitingPeriod = JSON.parse(data)['time'];
+         var waitingPeriod = JSON.parse(data)['time'];
          lcd.clear();
          lcd.setCursor(0,0);
          lcd.print(service+' to wait', function(err){

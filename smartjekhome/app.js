@@ -6,7 +6,8 @@ var Lcd = require('lcd'),
   /*raspi = require('raspi'),
   RotaryEncoder = require('raspi-rotary-encoder').RotaryEncoder*/
   rotaryEncoder = require('onoff-rotary'),
-  myEncoder = rotaryEncoder(20,21);
+  myEncoder = rotaryEncoder(20,21),
+  noble = require('noble');
   /*rpigpio = require('rpi-gpio'),
   raspi = require('raspi-io'),
   five = require('johnny-five'),
@@ -39,6 +40,53 @@ server.listen(function(clientAddress) {
 //board.on('ready', function(){
 //  console.log('ble ready');
 //});
+
+
+var RSSI_THRESHOLD    = -90;
+var EXIT_GRACE_PERIOD = 2000; // milliseconds
+
+var inRange = [];
+
+noble.on('discover', function(peripheral) {
+  if (peripheral.rssi < RSSI_THRESHOLD) {
+    // ignore
+    return;
+  }
+
+  var id = peripheral.id;
+  var entered = !inRange[id];
+
+  if (entered) {
+    inRange[id] = {
+      peripheral: peripheral
+    };
+
+    console.log('"' + peripheral.advertisement.localName + '" entered (RSSI ' + peripheral.rssi + ') ' + new Date());
+  }
+
+  inRange[id].lastSeen = Date.now();
+});
+
+setInterval(function() {
+  for (var id in inRange) {
+    if (inRange[id].lastSeen < (Date.now() - EXIT_GRACE_PERIOD)) {
+      var peripheral = inRange[id].peripheral;
+
+      console.log('"' + peripheral.advertisement.localName + '" exited (RSSI ' + peripheral.rssi + ') ' + new Date());
+
+      delete inRange[id];
+    }
+  }
+}, EXIT_GRACE_PERIOD / 2);
+
+noble.on('stateChange', function(state) {
+  console.log('state is ', state);
+  if (state === 'poweredOn') {
+    noble.startScanning([], true);
+  } else {
+    noble.stopScanning();
+  }
+});
 
 var httpOptions = {
   hostname: 'smartjekhome.herokuapp.com',

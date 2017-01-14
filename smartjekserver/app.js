@@ -50,7 +50,6 @@ firebase.initializeApp({
   databaseURL: 'https://smartjekhome.firebaseio.com/'
 });
 
-var ref101 = firebase.database().ref("/101");
 var ref102 = firebase.database().ref("/102");
 /*
  * Be sure to setup your config values before running this code. You can 
@@ -168,17 +167,35 @@ app.get('/init', function(request, response) {
   console.log('ip ', ip);
   var geo = geoip.lookup(ip);
   console.log(geo);
-  getInitData()
-  .then(function(data){
-    console.log('after getting response');
-    response.json(data);
+  getLocation(geo)
+  .then(function(location){
+    console.log('after getting location ', location);
+    getInitData(location)
+    .then(function(data){
+      console.log('after getting response', data);
+      response.json(data);
+    });
   });
 });
 
-var getInitData = function(){
+var getLocation = function(geo){
+    console.log('inside getLocation');
+    var ll = geo.ll[0]+':'+geo.ll[1];
+    var q = Q.defer();
+    var locationRef = firebase.database().ref("/location/"+ll+"/");
+    locationRef.once('value', function(snapshot){
+      console.log('on value');
+      var data = snapshot.val();
+      q.resolve(data);  
+    });
+    return q.promise;
+};
+
+var getInitData = function(location){
   console.log('inside getInitData');
   var q = Q.defer();
-  ref101.once('value', function(snapshot){
+  var servicesRef = firebase.database().ref("/"+location);
+  servicesRef.once('value', function(snapshot){
     console.log('on value');
     var data = snapshot.val();
     q.resolve(data);  

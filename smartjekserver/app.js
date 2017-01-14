@@ -257,8 +257,8 @@ var sendOrder = function(){
         var message = {
             "to": vendor['deviceToken'], // required
             "notification" : {
-              "body" : "great match!",
-              "title" : "Portugal vs. Denmark",
+              "body" : "A new order is waiting",
+              "title" : "You have an order",
               "icon" : "myicon"
             },
             "data": {

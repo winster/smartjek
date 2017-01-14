@@ -190,7 +190,7 @@ app.post('/devicetoken', function(request, response) {
         var obj = {deviceToken : deviceToken};
         vendorRef.set(obj);
       }
-      response.send({'result':result});
+      response.send({'result':'success'});
   });
 });
 

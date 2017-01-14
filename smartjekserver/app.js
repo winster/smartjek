@@ -26,7 +26,7 @@ app.use(express.static('public'));
 
 //var gcm = GCM('363651967593', 'AIzaSyCfYqVxRG0oz7Xo_jgRcXJk54t-XXhATGs');
 //var sender = new gcm.Sender('AIzaSyDUrnkknKXVwyM8Hmh0KVnQlU-oBrIjacY');
-var fcm = new FCM('AIzaSyDUrnkknKXVwyM8Hmh0KVnQlU-oBrIjacY');
+var fcm = new FCM('AIzaSyBE6TSp7p_NwY_FLGdHS05vci0gif1CJ1M');
  
 /*gcm.on('message', function(messageId, from, category, data) {
     console.log('message received::'+JSON.stringify(data))

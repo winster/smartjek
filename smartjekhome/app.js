@@ -152,7 +152,7 @@ var makeOrder = function(service){
       });
       res.on('end', ()=> {
          console.log(data);
-         setInterval(function(){pullWaitingPeriod(service)}, 2000);
+         setInterval(function(){pullWaitingPeriod(service)}, 20000);
       });
     });
     req.end();

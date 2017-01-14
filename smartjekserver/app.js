@@ -158,12 +158,12 @@ app.use(bodyParser.json());
 app.get('/init', function(request, response) {
   console.log('inside init')
   var ip;
-  if (req.headers['x-forwarded-for']) {
-    ip = req.headers['x-forwarded-for'].split(",")[0];
-  } else if (req.connection && req.connection.remoteAddress) {
-      ip = req.connection.remoteAddress;
+  if (request.headers['x-forwarded-for']) {
+    ip = request.headers['x-forwarded-for'].split(",")[0];
+  } else if (request.connection && request.connection.remoteAddress) {
+      ip = request.connection.remoteAddress;
   } else {
-      ip = req.ip;
+      ip = request.ip;
   }
   console.log('ip ', ip);
   var geo = geoip.lookup(ip);

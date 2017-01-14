@@ -196,6 +196,19 @@ app.post('/devicetoken', function(request, response) {
   });
 });
 
+app.post('/waitingTime', function(request, response) {
+  console.log('inside set waitingTime', request.body)
+  var req = request.body;
+  var time = req.time;
+  var vendorRef = firebase.database().ref("/vendors/V101/");
+  vendorRef.once('value', function(snapshot){
+      var vendor = snapshot.val();
+      vendor.time = time;
+      vendorRef.set(vendor);
+      response.send({'result':'success'});
+  });
+});
+
 app.post('/order', function(request, response) {
   console.log('inside order')
   sendOrder()

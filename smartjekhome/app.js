@@ -62,7 +62,21 @@ var button = new Gpio(26, 'in', 'both');
 button.watch(function(err, value){
   //console.log(value);
   if(value==1){
-    console.log('make order');
+     console.log('make order');
+     lcd.clear();
+     lcd.setCursor(0,0);
+     var service = selectedServices[COUNTER];
+     lcd.print('Made order for '+service, function(err){
+       if(err){
+         console.log('error in printing ', err);
+       }
+       setTimeout(function(){
+           lcd.clear();
+           lcd.setCursor(0,0);
+           lcd.print('Waiting for vendor..', function(err){
+           });
+       });
+     });
   }
 });
 myEncoder.on('rotation', direction => {

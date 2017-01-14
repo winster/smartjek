@@ -66,16 +66,22 @@ button.watch(function(err, value){
      lcd.clear();
      lcd.setCursor(0,0);
      var service = selectedServices[COUNTER];
-     lcd.print('Made order for '+service, function(err){
+     lcd.print('Made order for', function(err){
        if(err){
          console.log('error in printing ', err);
        }
        setTimeout(function(){
            lcd.clear();
            lcd.setCursor(0,0);
-           lcd.print('Waiting for vendor..', function(err){
+           lcd.print('Waiting for vend', function(err){
+           });
+           lcd.setCursor(0,2);
+           lcd.print('or to receive', function(err){
            });
        }, 5000);
+     });
+     lcd.setCursor(0,2);
+     lcd.print(service, function(err){
      });
   }
 });

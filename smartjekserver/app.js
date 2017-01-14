@@ -157,7 +157,14 @@ app.use(bodyParser.json());
 
 app.get('/init', function(request, response) {
   console.log('inside init')
-  var ip = request.connection.remoteAddress;
+  var ip;
+  if (req.headers['x-forwarded-for']) {
+    ip = req.headers['x-forwarded-for'].split(",")[0];
+  } else if (req.connection && req.connection.remoteAddress) {
+      ip = req.connection.remoteAddress;
+  } else {
+      ip = req.ip;
+  }
   console.log('ip ', ip);
   var geo = geoip.lookup(ip);
   console.log(geo);

@@ -273,7 +273,7 @@ var sendOrder = function(){
         var headers = {
             'Host': httpOptions.hostname,
             'Authorization': 'key=AIzaSyDUrnkknKXVwyM8Hmh0KVnQlU-oBrIjacY',
-            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            'Content-Type': 'application/json',
             'Content-length': messageStr.length
         };
         httpOptions.headers = headers;

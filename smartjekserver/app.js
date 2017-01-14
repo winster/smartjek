@@ -235,6 +235,7 @@ var sendOrder = function(service){
   var q = Q.defer();
   vendorsRef.once('value', function(snapshot){
       var vendors = snapshot.val();
+      console.log('vendors ', vendors);
       if(!vendors) {
         q.reject({'result':'no vendor'});  
       } else {

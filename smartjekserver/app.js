@@ -263,18 +263,18 @@ var sendOrder = function(){
             }
         };
         var messageStr = JSON.stringify(message); 
-        var headers = {
-            'Host': self.gcmOptions.host,
-            'Authorization': 'key=AIzaSyDUrnkknKXVwyM8Hmh0KVnQlU-oBrIjacY',
-            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-            'Content-length': messageStr.length
-        };
         console.log('message ', message);
         var httpOptions = {
           hostname: 'fcm.googleapis.com',
           port: 443,
           path: '/fcm/send',
           method: 'POST'
+        };
+        var headers = {
+            'Host': httpOptions.hostname,
+            'Authorization': 'key=AIzaSyDUrnkknKXVwyM8Hmh0KVnQlU-oBrIjacY',
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            'Content-length': messageStr.length
         };
         var req = https.request(httpOptions, (res) => {
             var data = '';

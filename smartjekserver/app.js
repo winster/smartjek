@@ -240,7 +240,7 @@ var sendOrder = function(service){
         q.reject({'result':'no vendor'});  
       } else {
         var regids = [];
-        regids.push(vendors[0].deviceToken);
+        regids.push(vendors[Object.keys(vendors)[0]]['deviceToken']);
         var message = new gcm.Message();
         message.addData('key1', 'msg1');
         sender.send(message, { registrationTokens: regids }, function (err, res) {

@@ -152,6 +152,28 @@ var makeOrder = function(service){
       });
       res.on('end', ()=> {
          console.log(data);
+         setInterval(pullWaitingPeriod, 2000);
+      });
+    });
+    req.end();
+    req.on('error', (e) => {
+      console.error(e);
+    });
+};
+
+var pullWaitingPeriod = function(){
+    httpOptions.path = '/waitingPeriod';
+    httpOptions.method = 'GET';
+    var req = https.request(httpOptions, (res) => {
+      //console.log('statusCode: ', res.statusCode);
+      //console.log('headers: ', res.headers);
+      var data = '';
+      res.on('data', (d) => {
+        process.stdout.write(d);
+        data+=d;
+      });
+      res.on('end', ()=> {
+         console.log(data);
          waitingPeriod = JSON.parse(data)['time'];
          lcd.clear();
          lcd.setCursor(0,0);

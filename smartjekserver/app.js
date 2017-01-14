@@ -206,6 +206,18 @@ app.post('/order', function(request, response) {
   })
 });
 
+app.get('/waitingPeriod', function(request, response) {
+  console.log('inside waitingPeriod')
+  getWaitingPeriod()
+  .then(function(result){
+      console.log('after getting response', result);
+      response.json(result);
+  }).catch(function(err){
+      console.log('after getting err', err);
+      response.json(err);
+  })
+});
+
 var getLocation = function(geo){
     console.log('inside getLocation');
     var ll = geo.ll[0]+':'+geo.ll[1];
@@ -252,6 +264,22 @@ var sendOrder = function(service){
             q.resolve({'result':'success'});
           }
         });
+      }
+  });    
+  return q.promise;
+}
+
+var getWaitingPeriod = function(){
+    var q = Q.defer();
+    vendorsRef.once('value', function(snapshot){
+      var vendors = snapshot.val();
+      console.log('vendors ', vendors);
+      if(!vendors) {
+        q.reject({'result':'error'});  
+      } else {
+        var regids = [];
+        var time = vendors[Object.keys(vendors)[0]]['time'];
+        q.resolve({'time':time});
       }
   });    
   return q.promise;

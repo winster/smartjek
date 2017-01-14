@@ -125,7 +125,7 @@ var initData = function(){
       //console.log('headers: ', res.headers);
       var data = '';
       res.on('data', (d) => {
-        process.stdout.write(d);
+        //process.stdout.write(d);
         data+=d;
       });
       res.on('end', ()=> {
@@ -147,7 +147,7 @@ var makeOrder = function(service){
       //console.log('headers: ', res.headers);
       var data = '';
       res.on('data', (d) => {
-        process.stdout.write(d);
+        //process.stdout.write(d);
         data+=d;
       });
       res.on('end', ()=> {
@@ -170,7 +170,7 @@ var pullWaitingPeriod = function(service){
       //console.log('headers: ', res.headers);
       var data = '';
       res.on('data', (d) => {
-        process.stdout.write(d);
+        //process.stdout.write(d);
         data+=d;
       });
       res.on('end', ()=> {

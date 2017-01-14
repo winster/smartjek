@@ -198,8 +198,8 @@ app.post('/order', function(request, response) {
   console.log('inside order')
   sendOrder()
   .then(function(result){
-      console.log('after getting response', data);
-      response.json(data);
+      console.log('after getting response', result);
+      response.json(result);
   }).catch(function(err){
       console.log('after getting err', err);
       response.json(err);

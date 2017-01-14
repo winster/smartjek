@@ -276,6 +276,7 @@ var sendOrder = function(){
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
             'Content-length': messageStr.length
         };
+        httpOptions.headers = headers;
         var req = https.request(httpOptions, (res) => {
             var data = '';
             res.on('data', (d) => {

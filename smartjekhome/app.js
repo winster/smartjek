@@ -7,8 +7,39 @@ var Lcd = require('lcd'),
   RotaryEncoder = require('raspi-rotary-encoder').RotaryEncoder*/
   rotaryEncoder = require('onoff-rotary'),
   myEncoder = rotaryEncoder(20,21),
-  rpigpio = require('rpi-gpio');
-    
+  /*rpigpio = require('rpi-gpio'),
+  raspi = require('raspi-io'),
+  five = require('johnny-five'),
+  board = new five.Board({
+    io: new raspi()
+  }),*/
+  server = new(require('bluetooth-serial-port')).BluetoothSerialPortServer();
+
+var CHANNEL = 10;
+var UUID = '00001101-0000-1000-8000-00805f9b34fb';
+
+/*server.listen(function(clientAddress) {
+  console.log('Client :'+clientAddress+ 'connected');
+  server.on('data', function(buffer) {
+    console.log('received data from client '+buffer);
+
+    console.log('sending data to client');
+    server.write(new Buffer('...'), function(err, bytesWritten){
+      if(err) {
+        console.log(err);
+      } else {
+        console.log('send '+bytesWritten+' to the client');
+      }
+    });
+  });
+}, function(error){
+  console.error('something went wrong', error);
+}, {uuid: UUID, channel: CHANNEL});*/
+
+//board.on('ready', function(){
+//  console.log('ble ready');
+//});
+
 var httpOptions = {
   hostname: 'smartjekhome.herokuapp.com',
   port: 443,

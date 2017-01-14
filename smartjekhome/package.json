@@ -22,6 +22,10 @@
     "raspi" : "*",
     "raspi-rotary-encoder" : "*",
     "onoff-rotary": "*",
-    "rpi-gpio": "*"
+    "rpi-gpio": "*",
+    "noble": "*",
+    "serialport":"*",
+    "johnny-five":"*",
+    "raspi-io":"*"
   }
 }

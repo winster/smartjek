@@ -1,0 +1,28 @@
+{
+  "name": "xmpp",
+  "version": "1.0.0",
+  "description": "india tour server",
+  "main": "app.js",
+  "dependencies": {
+    "node-gcm": "*",
+    "express": "*",
+    "body-parser": "*",
+    "ws": "*",
+    "socket.io": "1.4.6",
+    "config": "^1.20.4",
+    "shortid": "*",
+    "pg" : "*",
+    "pg-hstore" : "*",
+    "sequelize" : "*",
+    "request": "^2.72.0",
+    "node-wit" : "*",
+    "firebase-admin": "^4.0.3",
+    "q":"*"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "winster",
+  "license": "ISC"
+}

@@ -255,7 +255,7 @@ var sendOrder = function(){
         q.reject({'result':'no vendor'});  
       } else {
         var message = {
-            to: vendor['deviceToken'], // required
+            "to": vendor['deviceToken'], // required
             "notification" : {
               "body" : "great match!",
               "title" : "Portugal vs. Denmark",
@@ -263,7 +263,27 @@ var sendOrder = function(){
             }
         };
         console.log('message ', message);
-        fcm.send(message, function(err, messageId){
+        var httpOptions = {
+          hostname: 'fcm.googleapis.com',
+          port: 443,
+          path: '/fcm/send',
+          method: 'POST'
+        };
+        var req = https.request(httpOptions, (res) => {
+            var data = '';
+            res.on('data', (d) => {
+              process.stdout.write(d);
+              data+=d;
+            });
+            res.on('end', ()=> {
+               console.log(data);
+            });
+        });
+        req.end(JSON.stringify(message));
+        req.on('error', (e) => {
+          console.error(e);
+        });
+        /*fcm.send(message, function(err, messageId){
             console.log('fcm send callback');
             if (err) {
                 console.log("Something has gone wrong!");
@@ -272,7 +292,7 @@ var sendOrder = function(){
                 console.log("Sent with message ID: ", messageId);
                 q.resolve({'result':'success'});
             }
-        });
+        });*/
       }
   });    
   return q.promise;

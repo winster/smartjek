@@ -232,25 +232,28 @@ var getInitData = function(location){
 };
 
 var sendOrder = function(service){
+  var q = Q.defer();
   vendorsRef.once('value', function(snapshot){
       var vendors = snapshot.val();
       if(!vendors) {
-        response.send({'result':'no vendor'});
+        q.reject({'result':'no vendor'});  
       } else {
         var regids = [];
         regids.push(vendors[0].deviceToken);
         var message = new gcm.Message();
         message.addData('key1', 'msg1');
         sender.send(message, { registrationTokens: regids }, function (err, res) {
-          if(err) 
+          if(err) { 
             console.error(err);
-          else    
-            console.log(res);
-          console.log('notifications sent to '+regids);
-        }); 
-        response.send({'result':result});
+            q.reject({'result':'no vendor'});  
+          } else {
+            console.log('notifications sent to '+regids);
+            q.resolve({'result':'success'});
+          }
+        });
       }
   });    
+  return q.promise;
 }
 
 var broadcast=function(queue){

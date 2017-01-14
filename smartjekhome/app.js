@@ -93,8 +93,8 @@ var printCount=function(){
 };
 
 var initData = function(){
-    httpOptions.path = 'init';
-    httpOptions.path = 'GET';
+    httpOptions.path = '/init';
+    httpOptions.method = 'GET';
     var req = https.request(httpOptions, (res) => {
       //console.log('statusCode: ', res.statusCode);
       //console.log('headers: ', res.headers);
@@ -140,3 +140,4 @@ process.on('SIGINT', function () {
   })
 
 });*/
+initData();

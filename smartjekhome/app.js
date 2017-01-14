@@ -104,7 +104,8 @@ var initData = function(){
         data+=d;
       });
       res.on('end', ()=> {
-        lcd.print(data, function (err) {
+        console.log(data);
+        lcd.print('ready...', function (err) {
           if (err) {
             throw err;
           }

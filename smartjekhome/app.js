@@ -6,16 +6,16 @@ var Lcd = require('lcd'),
   /*raspi = require('raspi'),
   RotaryEncoder = require('raspi-rotary-encoder').RotaryEncoder*/
   rotaryEncoder = require('onoff-rotary'),
-  myEncoder = rotaryEncoder(20,21),
+  myEncoder = rotaryEncoder(20,21);
   /*rpigpio = require('rpi-gpio'),
   raspi = require('raspi-io'),
   five = require('johnny-five'),
   board = new five.Board({
     io: new raspi()
-  }),*/
-  server = new(require('bluetooth-serial-port')).BluetoothSerialPortServer();
+  }),
+  server = new(require('bluetooth-serial-port')).BluetoothSerialPortServer();*/
 
-var CHANNEL = 10;
+/*var CHANNEL = 10;
 var UUID = '00001101-0000-1000-8000-00805f9b34fb';
 
 server.listen(function(clientAddress) {
@@ -34,8 +34,8 @@ server.listen(function(clientAddress) {
   });
 }, function(error){
   console.error('something went wrong', error);
-}, {uuid: UUID, channel: CHANNEL});
-
+});
+*/
 //board.on('ready', function(){
 //  console.log('ble ready');
 //});

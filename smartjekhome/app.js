@@ -18,7 +18,7 @@ var Lcd = require('lcd'),
 var CHANNEL = 10;
 var UUID = '00001101-0000-1000-8000-00805f9b34fb';
 
-/*server.listen(function(clientAddress) {
+server.listen(function(clientAddress) {
   console.log('Client :'+clientAddress+ 'connected');
   server.on('data', function(buffer) {
     console.log('received data from client '+buffer);
@@ -34,7 +34,7 @@ var UUID = '00001101-0000-1000-8000-00805f9b34fb';
   });
 }, function(error){
   console.error('something went wrong', error);
-}, {uuid: UUID, channel: CHANNEL});*/
+}, {uuid: UUID, channel: CHANNEL});
 
 //board.on('ready', function(){
 //  console.log('ble ready');

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "941091967918",
+    "firebase_url": "https://smartjekvendor.firebaseio.com",
+    "project_id": "smartjekvendor",
+    "storage_bucket": "smartjekvendor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941091967918:android:74c256666d2c6ec8",
+        "android_client_info": {
+          "package_name": "com.winster.smartjekvendor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "941091967918-94hqkpvftdruoltbo6ank7npl2n8pi7t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.winster.smartjekvendor",
+            "certificate_hash": "45A1612120E91028E1F401197019A6B3BE072C11"
+          }
+        },
+        {
+          "client_id": "941091967918-fv02lv3g3jtvg3m5304s5lsp6b309bjn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBE6TSp7p_NwY_FLGdHS05vci0gif1CJ1M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "941091967918-fv02lv3g3jtvg3m5304s5lsp6b309bjn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -73,6 +73,7 @@ button.watch(function(err, value){
        lcd.setCursor(0,1);
        lcd.print(service, function(err){
        });
+       makeOrder(service);
        setTimeout(function(){
            lcd.clear();
            lcd.setCursor(0,0);
@@ -130,6 +131,35 @@ var initData = function(){
       res.on('end', ()=> {
         console.log(data);
         services = JSON.parse(data)['services'];
+      });
+    });
+    req.end();
+    req.on('error', (e) => {
+      console.error(e);
+    });
+};
+
+var makeOrder = function(service){
+    httpOptions.path = '/order';
+    httpOptions.method = 'POST';
+    var req = https.request(httpOptions, (res) => {
+      //console.log('statusCode: ', res.statusCode);
+      //console.log('headers: ', res.headers);
+      var data = '';
+      res.on('data', (d) => {
+        process.stdout.write(d);
+        data+=d;
+      });
+      res.on('end', ()=> {
+         console.log(data);
+         waitingPeriod = JSON.parse(data)['time'];
+         lcd.clear();
+         lcd.setCursor(0,0);
+         lcd.print(service+' to wait', function(err){
+           lcd.setCursor(0,1);
+           lcd.print(waitingPeriod+' minutes', function(err){
+           });
+         });
       });
     });
     req.end();

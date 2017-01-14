@@ -20,11 +20,11 @@ const express = require('express'),
 
 var app = express();
 app.set('port', process.env.PORT || 5000);
-app.set('view engine', 'ejs');
+//app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 //var gcm = GCM('363651967593', 'AIzaSyCfYqVxRG0oz7Xo_jgRcXJk54t-XXhATGs');
-var sender = new gcm.Sender('AIzaSyCfYqVxRG0oz7Xo_jgRcXJk54t-XXhATGs');
+var sender = new gcm.Sender('AAAA2x1z064:APA91bHc78HNke78cN_qVyQzxsqK_Dp1GIVgx1vPgZ39OEKsoQCAAf7SDNR2qsegtjoEMi_CUWf7ky1vswiE4LXCjpooMgLuIegpE0PSP2vH9LTdnc68inpDA5xOW4ELUnm6JQeukzPJ');
  
 /*gcm.on('message', function(messageId, from, category, data) {
     console.log('message received::'+JSON.stringify(data))
@@ -47,10 +47,9 @@ var serviceAccount = require("./serviceAccountKey.json");
 
 firebase.initializeApp({
   credential: firebase.credential.cert(serviceAccount),
-  databaseURL: 'https://smartjekhome.firebaseio.com/'
+  databaseURL: 'https://smartjekvendor.firebaseio.com/'
 });
 
-var ref102 = firebase.database().ref("/102");
 /*
  * Be sure to setup your config values before running this code. You can 
  * set them using environment variables or modifying the config file in /config.
@@ -178,6 +177,35 @@ app.get('/init', function(request, response) {
   });
 });
 
+var vendorsRef = firebase.database().ref("/vendors");
+
+app.post('/devicetoken', function(request, response) {
+  console.log('inside devicetoken')
+  var endpointParts=request.endpoint.split('/');
+  var registrationId = endpointParts[endpointParts.length - 1];  
+  var vendorRef = vendorsRef.child(registrationId);
+  vendorRef.once('value', function(snapshot){
+      var profile = snapshot.val();
+      if(!profile) {
+        req.token = registrationId;
+        vendorRef.set(req);
+      }
+      response.send({'result':result});
+  });
+});
+
+app.post('/order', function(request, response) {
+  console.log('inside order')
+  sendOrder()
+  .then(function(result){
+      console.log('after getting response', data);
+      response.json(data);
+  }).catch(function(err){
+      console.log('after getting err', err);
+      response.json(err);
+  })
+});
+
 var getLocation = function(geo){
     console.log('inside getLocation');
     var ll = geo.ll[0]+':'+geo.ll[1];
@@ -203,13 +231,25 @@ var getInitData = function(location){
   return q.promise;
 };
 
-var sendnotifs = function(message, regids){
-  sender.send(message, { registrationTokens: regids }, function (err, res) {
-    if(err) 
-      console.error(err);
-    else    
-      console.log(res);
-    console.log('notifications sent to '+regids);
+var sendOrder = function(service){
+  vendorsRef.once('value', function(snapshot){
+      var vendors = snapshot.val();
+      if(!vendors) {
+        response.send({'result':'no vendor'});
+      } else {
+        var regids = [];
+        regids.push(vendors[0].token);
+        var message = new gcm.Message();
+        message.addData('key1', 'msg1');
+        sender.send(message, { registrationTokens: regids }, function (err, res) {
+          if(err) 
+            console.error(err);
+          else    
+            console.log(res);
+          console.log('notifications sent to '+regids);
+        }); 
+        response.send({'result':result});
+      }
   });    
 }
 

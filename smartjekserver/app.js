@@ -261,7 +261,7 @@ var sendOrder = function(service){
             console.error(err);
             q.reject({'result':'no vendor'});  
           } else {
-            console.log('notifications sent to '+res);
+            console.log('gcm response '+JSON.stringify(res));
             q.resolve({'result':'success'});
           }
         });

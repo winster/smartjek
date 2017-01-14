@@ -255,10 +255,12 @@ var sendOrder = function(){
         q.reject({'result':'no vendor'});  
       } else {
         var message = {
-            registration_id: vendor['deviceToken'], // required
-            collapse_key: 'Collapse key', 
-            'data.key1': 'value1',
-            'data.key2': 'value2'
+            to: vendor['deviceToken'], // required
+            "notification" : {
+              "body" : "great match!",
+              "title" : "Portugal vs. Denmark",
+              "icon" : "myicon"
+            }
         };
         console.log('message ', message);
         fcm.send(message, function(err, messageId){

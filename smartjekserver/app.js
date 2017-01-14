@@ -15,7 +15,8 @@ const express = require('express'),
     log = require('node-wit').log,
     firebase = require('firebase-admin'),
     Q = require("q"),
-    geoip = require('geoip-lite');
+    geoip = require('geoip-lite'),
+    FCM = require('fcm').FCM;
 
 
 var app = express();
@@ -24,7 +25,8 @@ app.set('port', process.env.PORT || 5000);
 app.use(express.static('public'));
 
 //var gcm = GCM('363651967593', 'AIzaSyCfYqVxRG0oz7Xo_jgRcXJk54t-XXhATGs');
-var sender = new gcm.Sender('AIzaSyDUrnkknKXVwyM8Hmh0KVnQlU-oBrIjacY');
+//var sender = new gcm.Sender('AIzaSyDUrnkknKXVwyM8Hmh0KVnQlU-oBrIjacY');
+var fcm = new FCM('AAAA2x1z064:APA91bHc78HNke78cN_qVyQzxsqK_Dp1GIVgx1vPgZ39OEKsoQCAAf7SDNR2qsegtjoEMi_CUWf7ky1vswiE4LXCjpooMgLuIegpE0PSP2vH9LTdnc68inpDA5xOW4ELUnm6JQeukzPJ');
  
 /*gcm.on('message', function(messageId, from, category, data) {
     console.log('message received::'+JSON.stringify(data))
@@ -252,18 +254,20 @@ var sendOrder = function(service){
       if(!vendor) {
         q.reject({'result':'no vendor'});  
       } else {
-        var regids = [];
-        regids.push(vendor['deviceToken']);
-        var message = new gcm.Message();
-        message.addData('key1', 'msg1');
-        sender.send(message, { registrationTokens: regids }, function (err, res) {
-          if(err) { 
-            console.error(err);
-            q.reject({'result':'no vendor'});  
-          } else {
-            console.log('gcm response '+JSON.stringify(res));
-            q.resolve({'result':'success'});
-          }
+        var message = {
+            registration_id: vendor['deviceToken'], // required
+            collapse_key: 'Collapse key', 
+            'data.key1': 'value1',
+            'data.key2': 'value2'
+        };
+        fcm.send(message, function(err, messageId){
+            if (err) {
+                console.log("Something has gone wrong!");
+                q.reject({'result':'no vendor'});
+            } else {
+                console.log("Sent with message ID: ", messageId);
+                q.resolve({'result':'success'});
+            }
         });
       }
   });    

@@ -18,7 +18,8 @@
     "node-wit" : "*",
     "firebase-admin": "^4.0.3",
     "q":"*",
-    "geoip-lite":"*"
+    "geoip-lite":"*",
+    "fcm":"*"
   },
   "devDependencies": {},
   "scripts": {

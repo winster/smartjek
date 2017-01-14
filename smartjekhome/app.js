@@ -85,12 +85,16 @@ myEncoder.on('rotation', direction => {
 var printCount=function(){
    lcd.clear();
    lcd.setCursor(0,0);
-   lcd.print(COUNTER, function(err){
+   var service = selectedServices[COUNTER];
+   lcd.print(service, function(err){
      if(err){
        console.log('error in printing ', err);
      }
    });
 };
+
+var services = {};
+var selectedServices = ['breakfast','carwash','electrician','fruits','housecleaning','laundry','lunch','milk','snacks','vegetables'];
 
 var initData = function(){
     httpOptions.path = '/init';
@@ -105,11 +109,7 @@ var initData = function(){
       });
       res.on('end', ()=> {
         console.log(data);
-        lcd.print('ready...', function (err) {
-          if (err) {
-            throw err;
-          }
-        });
+        services = JSON.parse(data)['services'];
       });
     });
     req.end();

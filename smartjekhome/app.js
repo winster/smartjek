@@ -75,7 +75,7 @@ button.watch(function(err, value){
            lcd.setCursor(0,0);
            lcd.print('Waiting for vendor..', function(err){
            });
-       });
+       }, 5000);
      });
   }
 });

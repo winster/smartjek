@@ -181,14 +181,13 @@ var vendorsRef = firebase.database().ref("/vendors");
 
 app.post('/devicetoken', function(request, response) {
   console.log('inside devicetoken')
-  var endpointParts=request.endpoint.split('/');
-  var registrationId = endpointParts[endpointParts.length - 1];  
-  var vendorRef = vendorsRef.child(registrationId);
+  var req = request.body;
+  var deviceToken = req.deviceToken;
   vendorRef.once('value', function(snapshot){
       var profile = snapshot.val();
       if(!profile) {
-        req.token = registrationId;
-        vendorRef.set(req);
+        var obj = {deviceToken : deviceToken};
+        vendorRef.set(obj);
       }
       response.send({'result':result});
   });
@@ -238,7 +237,7 @@ var sendOrder = function(service){
         response.send({'result':'no vendor'});
       } else {
         var regids = [];
-        regids.push(vendors[0].token);
+        regids.push(vendors[0].deviceToken);
         var message = new gcm.Message();
         message.addData('key1', 'msg1');
         sender.send(message, { registrationTokens: regids }, function (err, res) {

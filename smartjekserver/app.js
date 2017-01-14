@@ -180,10 +180,10 @@ app.get('/init', function(request, response) {
 var vendorsRef = firebase.database().ref("/vendors");
 
 app.post('/devicetoken', function(request, response) {
-  console.log('inside devicetoken')
+  console.log('inside devicetoken', request.body)
   var req = request.body;
   var deviceToken = req.deviceToken;
-  var vendorRef = firebase.database().ref("/vendors/"+devicetoken+"/");
+  var vendorRef = firebase.database().ref("/vendors/"+deviceToken+"/");
   vendorRef.once('value', function(snapshot){
       var profile = snapshot.val();
       if(!profile) {

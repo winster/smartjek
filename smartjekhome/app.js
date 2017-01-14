@@ -152,7 +152,7 @@ var makeOrder = function(service){
       });
       res.on('end', ()=> {
          console.log(data);
-         setInterval(pullWaitingPeriod, 2000);
+         setInterval(function(){pullWaitingPeriod(service)}, 2000);
       });
     });
     req.end();
@@ -161,7 +161,7 @@ var makeOrder = function(service){
     });
 };
 
-var pullWaitingPeriod = function(){
+var pullWaitingPeriod = function(service){
     httpOptions.path = '/waitingPeriod';
     httpOptions.method = 'GET';
     var req = https.request(httpOptions, (res) => {

@@ -183,7 +183,7 @@ app.post('/devicetoken', function(request, response) {
   console.log('inside devicetoken', request.body)
   var req = request.body;
   var deviceToken = req.deviceToken;
-  var vendorRef = firebase.database().ref("/vendors/"+deviceToken+"/");
+  var vendorRef = firebase.database().ref("/vendors/V101/");
   vendorRef.once('value', function(snapshot){
       var profile = snapshot.val();
       if(!profile) {
@@ -245,14 +245,15 @@ var getInitData = function(location){
 
 var sendOrder = function(service){
   var q = Q.defer();
-  vendorsRef.once('value', function(snapshot){
-      var vendors = snapshot.val();
-      console.log('vendors ', vendors);
-      if(!vendors) {
+  var vendorRef = firebase.database().ref("/vendors/V101/");
+  vendorRef.once('value', function(snapshot){
+      var vendor = snapshot.val();
+      console.log('vendor ', vendor);
+      if(!vendor) {
         q.reject({'result':'no vendor'});  
       } else {
         var regids = [];
-        regids.push(vendors[Object.keys(vendors)[0]]['deviceToken']);
+        regids.push(vendor['deviceToken']);
         var message = new gcm.Message();
         message.addData('key1', 'msg1');
         sender.send(message, { registrationTokens: regids }, function (err, res) {

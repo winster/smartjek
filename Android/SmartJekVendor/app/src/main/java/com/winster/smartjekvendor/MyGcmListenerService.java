@@ -70,7 +70,7 @@ public class MyGcmListenerService extends FirebaseMessagingService {
 
         final int icon = R.mipmap.ic_launcher;
 
-        Intent resultIntent = new Intent(this, OrderActivity.class);
+        Intent resultIntent = new Intent(MyGcmListenerService.this, OrderActivity.class);
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         final PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(

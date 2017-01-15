@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/activity_connect"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -9,27 +9,19 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.winster.smartjekhome.MainActivity">
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="Connect to Smart Home"
-        android:onClick="connect"/>
+    tools:context="com.winster.smartjekhome.ConnectActivity">
 
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:text="Choose smart services"
-        android:onClick="services"/>
+        android:text="Scan Devices"/>
 
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:text="Payment Mode"
-        android:onClick="payment"/>
-
+        android:text="Configure Smart Home"
+        android:onClick="configure"/>
 
 </LinearLayout>

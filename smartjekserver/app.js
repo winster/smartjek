@@ -235,7 +235,7 @@ app.get('/waitingPeriod', function(request, response) {
 
 var getLocation = function(geo){
     console.log('inside getLocation');
-    var ll = geo.ll[0]+':'+geo.ll[1];
+    var ll = Math.round(geo.ll[0])+':'+Math.round(geo.ll[1]);
     var q = Q.defer();
     var locationRef = firebase.database().ref("/location/"+ll+"/");
     locationRef.once('value', function(snapshot){
